@@ -1,0 +1,7 @@
+{
+  "name": "pat-pickadate",
+  "version": "0.0.1",
+  "dependencies": {
+    "patternslib": "~2.0.5"
+  }
+}

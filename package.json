@@ -1,0 +1,27 @@
+{
+  "name": "pat-pickadate",
+  "version": "0.0.1",
+  "title": "Patternslib plugin for Pickadate",
+  "repository": "https://github.com/Patternslib/pat-pickadate.git",
+  "licences": [
+    {
+      "type": "BSD",
+      "URL": "LICENSE"
+    }
+  ],
+  "devDependencies": {
+    "bower": "latest",
+    "requirejs": ""
+  },
+  "homepage": "https://gitub.com/Patternslib/pat-pickadate",
+  "maintainers": [
+    {
+      "name": "JC Brand (Syslab GmBH)",
+      "email": "brand@syslab.com",
+      "url": "https://www.syslab.com"
+    }
+  ],
+  "dependencies": {
+    "http-server": "^0.7.3"
+  }
+}

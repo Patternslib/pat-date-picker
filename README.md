@@ -1,4 +1,4 @@
 pat-pickadate
 =============
 
-Pattern which wraps the Pickadate library
+A Patternslib pattern which wraps the Pickadate library.
