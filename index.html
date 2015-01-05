@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <script data-main="../main" src="../src/bower_components/requirejs/require.js"></script>
+    <link rel="stylesheet" href="src/bower_components/pickadate/lib/themes/classic.css"/>
+    <link rel="stylesheet" href="src/bower_components/pickadate/lib/themes/classic.date.css"/>
+    <link rel="stylesheet" href="src/bower_components/pickadate/lib/themes/classic.time.css"/>
+    <title>Pickadate Pattern demo</title>
+</head>
+<body>
+  <div id="container">
+    <h1>Pickadate Pattern demo</h1>
+    <form>
+      <legend>
+        <label>Example 1:</label>
+        <input class="pat-pickadate"/>
+      </legend>
+
+      <legend>
+        <label>Example 2:</label>
+        <input class="pat-pickadate" value="2010-12-31 00:45" />
+      </legend>
+
+      <legend>
+        <label>Example 3:</label>
+        <input class="pat-pickadate" data-pat-pickadate="time:false"/>
+      </legend>
+
+      <legend>
+        <label>Example 4:</label>
+        <input class="pat-pickadate" value="2010-12-31" data-pat-pickadate="time:false"/>
+      </legend>
+
+      <legend>
+        <label>Example 5:</label>
+        <input class="pat-pickadate" data-pat-pickadate="date:false"/>
+      </legend>
+
+      <legend>
+        <label>Example 6:</label>
+        <input class="pat-pickadate" value="00:00" data-pat-pickadate="date:false"/>
+      </legend>
+    </form>
+  </div>
+</body>
+</html>
