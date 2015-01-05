@@ -86,6 +86,7 @@
         define([
             'jquery',
             "pat-registry",
+            "pat-parser",
             'picker',
             'picker.date',
             'picker.time',
@@ -95,15 +96,15 @@
             return factory.apply(this, arguments);
         });
     } else {
-        factory(root.patterns, root.patterns.Parser, Picker, PickerDate, PickerTime, Autosuggest, _t);
+        factory($, root.patterns, root.patterns.Parser, Picker, PickerDate, PickerTime, Autosuggest, _t);
     }
-}(this, function($, registry, Picker, PickerDate, PickerTime, Select2, _t) {
+}(this, function($, registry, Parser, Picker, PickerDate, PickerTime, Select2, _t) {
   'use strict';
   var parser = new Parser("pickadate");
   // Date widget options described here. If false is selected date picker wont be shown. ({{selectYears: true, selectMonths: true })
-  parser.add_argument("date", { selectYears: true, selectMonths: true });
-  // Time widget options described here. If false is selected time picker wont be shown. ({})
-  parser.add_argument("time");
+  parser.add_argument("date", true);
+  // Time widget options described here. If false is selected time picker wont be shown.
+  parser.add_argument("time", true);
   // Separator between date and time if both are enabled.
   parser.add_argument("separator", ' ');
   // XXX Camel case names are for Mockup compat
@@ -139,15 +140,17 @@
     name: 'pickadate',
     trigger: ".pat-pickadate",
     options: {
-      timezone: null,
+      date: { selectYears: true, selectMonths: true },
       placeholderDate: _t('Enter date...'),
       placeholderTime: _t('Enter time...'),
-      placeholderTimezone: _t('Enter timezone...')
+      placeholderTimezone: _t('Enter timezone...'),
+      time: {},
+      timezone: null
     },
 
-    init: function() {
+    init: function patPickadateInit ($el, opts) {
       var self = this,
-          value = self.$el.val().split(' '),
+          value = $el.val().split(' '),
           dateValue = value[0] || '',
           timeValue = value[1] || '';
 
@@ -158,11 +161,11 @@
         timeValue = value[0];
       }
 
-      self.$el.hide();
+      $el.hide();
 
       self.$wrapper = $('<div/>')
             .addClass(self.options.classWrapperName)
-            .insertAfter(self.$el);
+            .insertAfter($el);
 
       if (self.options.date !== false) {
         self.options.date.formatSubmit = 'yyyy-mm-dd';
@@ -179,11 +182,11 @@
                     self.$date.attr('data-value', e.select);
                     if (self.options.time === false ||
                         self.$time.attr('data-value') !== '') {
-                      self.updateValue.call(self);
+                      self.updateValue.call(self, $el);
                     }
                   }
                   if (e.hasOwnProperty('clear')) {
-                    self.$el.removeAttr('value');
+                    $el.removeAttr('value');
                     self.$date.attr('data-value', '');
                   }
                 }
@@ -213,11 +216,11 @@
                     self.$time.attr('data-value', e.select);
                     if (self.options.date === false ||
                         self.$date.attr('data-value') !== '') {
-                      self.updateValue.call(self);
+                      self.updateValue.call(self, $el);
                     }
                   }
                   if (e.hasOwnProperty('clear')) {
-                    self.$el.removeAttr('value');
+                    $el.removeAttr('value');
                     self.$time.attr('data-value', '');
                   }
                 }
@@ -257,7 +260,7 @@
               self.$timezone.attr('data-value', e.val);
               if ((self.options.date === false || self.$date.attr('data-value') !== '') &&
                   (self.options.time === false || self.$time.attr('data-value') !== '')) {
-                self.updateValue.call(self);
+                self.updateValue.call(self, $el);
               }
             }
           });
@@ -296,7 +299,7 @@
       return value;
     },
 
-    updateValue: function() {
+    updateValue: function($el) {
       var self = this,
           value = '';
 
@@ -328,8 +331,8 @@
           value += timezone;
         }
       }
-      self.$el.attr('value', value);
-      self.trigger('updated');
+      $el.attr('value', value);
+      $el.trigger('updated');
     }
   };
   registry.register(pickadate);
