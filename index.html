@@ -6,7 +6,16 @@
     <link rel="stylesheet" href="src/bower_components/pickadate/lib/themes/classic.css"/>
     <link rel="stylesheet" href="src/bower_components/pickadate/lib/themes/classic.date.css"/>
     <link rel="stylesheet" href="src/bower_components/pickadate/lib/themes/classic.time.css"/>
+		<link rel="stylesheet" href="src/bower_components/select2/select2.css" type="text/css">
     <title>Pickadate Pattern demo</title>
+
+    <style>
+        legend {
+          border: 1px solid lightgrey;
+          padding: 1em;
+          margin: 1em;
+        }
+    </style>
 </head>
 <body>
   <div id="container">
@@ -28,19 +37,41 @@
       </legend>
 
       <legend>
+        <p>Time</p>
         <label>Example 4:</label>
         <input class="pat-pickadate" value="2010-12-31" data-pat-pickadate="time:false"/>
       </legend>
 
       <legend>
+        <p>Time with initial time</p>
         <label>Example 5:</label>
         <input class="pat-pickadate" data-pat-pickadate="date:false"/>
       </legend>
 
       <legend>
+        <p>Date and time with timezone</p>
         <label>Example 6:</label>
         <input class="pat-pickadate" value="00:00" data-pat-pickadate="date:false"/>
       </legend>
+
+      <legend>
+        <p>Date and time with timezone</p>
+        <label>Example 7:</label>
+        <input class="pat-pickadate" data-pat-pickadate='{"timezone": {"data": [{"id":"Europe/Berlin","text":"Europe/Berlin"},{"id":"Europe/Vienna","text":"Europe/Vienna"}]}}'/>
+      </legend>
+
+      <legend>
+        <p>Date and time with timezone and default value</p>
+        <label>Example 8:</label>
+        <input class="pat-pickadate" data-pat-pickadate='{"timezone": {"default": "Europe/Vienna", "data": [{"id":"Europe/Berlin","text":"Europe/Berlin"},{"id":"Europe/Vienna","text":"Europe/Vienna"}]}}'/>
+      </legend>
+
+      <legend>
+        <p>Date and time with one timezone</p>
+        <label>Example 9:</label>
+        <input class="pat-pickadate" data-pat-pickadate='{"timezone": {"data": [{"id":"Europe/Berlin","text":"Europe/Berlin"}]}}'/>
+      </legend>
+
     </form>
   </div>
 </body>
