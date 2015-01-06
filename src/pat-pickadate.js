@@ -245,7 +245,9 @@
           .addClass(self.options.classTimezoneName)
           .attr('placeholder', self.options.placeholderTimezone)
           .attr('data-pat-autosuggest',
-              "data: "+JSON.stringify(self.options.timezone.data)+"; maximum-selection-size: 1")
+              'words-json: '+ (JSON.stringify(self.options.timezone.data) || "") +
+              '; pre-fill: '+ (self.options.timezone.default || "") +
+              '; maximum-selection-size: 1')
           .appendTo($('<div/>')
             .addClass(self.options.classTimezoneWrapperName)
             .appendTo(self.$wrapper))
