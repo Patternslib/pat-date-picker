@@ -26,7 +26,7 @@ require.config({
     }
 });
 
-require(["pat-registry", "pat-pickadate", "jquery.browser"], function(registry, upload) {
+require(["pat-registry", "pat-date-picker", "jquery.browser"], function(registry, upload) {
     window.patterns = registry;
     // workaround this MSIE bug :
     // https://dev.plone.org/plone/ticket/10894

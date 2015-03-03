@@ -29,7 +29,7 @@
 
   return Base.extend({
     name: 'pickadate',
-    trigger: ".pat-pickadate",
+    trigger: ".pat-date-picker",
 
     init: function patPickadateInit ($el, opts) {
       var self = this,

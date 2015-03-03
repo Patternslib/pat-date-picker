@@ -1,4 +1,4 @@
-##pat-pickadate
+##pat-date-picker
 
 A Patternslib pattern which wraps the [Pickadate](http://amsul.ca/pickadate.js/) library.
 

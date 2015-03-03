@@ -1,8 +1,8 @@
 {
-  "name": "pat-pickadate",
+  "name": "pat-date-picker",
   "version": "0.0.1",
   "title": "Patternslib plugin for Pickadate",
-  "repository": "https://github.com/Patternslib/pat-pickadate.git",
+  "repository": "https://github.com/Patternslib/pat-date-picker.git",
   "licences": [
     {
       "type": "BSD",
@@ -13,7 +13,7 @@
     "bower": "latest",
     "requirejs": ""
   },
-  "homepage": "https://gitub.com/Patternslib/pat-pickadate",
+  "homepage": "https://gitub.com/Patternslib/pat-date-picker",
   "maintainers": [
     {
       "name": "JC Brand (Syslab GmBH)",
