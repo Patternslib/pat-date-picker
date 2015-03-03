@@ -18,7 +18,7 @@
     }
 }(this, function($, Base, registry, Parser, Picker, PickerDate, PickerTime, patternSelect2, _t) {
   'use strict';
-  var parser = new Parser("pickadate");
+  var parser = new Parser("date-picker");
   parser.add_argument("date", { selectYears: true, selectMonths: true });
   parser.add_argument("separator", ' '); // Separator between date and time if both are enabled.
   parser.add_argument("show-date", true);
@@ -28,7 +28,7 @@
   parser.add_argument("timezone", {});
 
   return Base.extend({
-    name: 'pickadate',
+    name: 'date-picker',
     trigger: ".pat-date-picker",
 
     init: function patPickadateInit ($el, opts) {
@@ -38,9 +38,7 @@
           timeValue = value[1] || '';
 
       self.options = $.extend(self.options, parser.parse(self.$el, opts));
-      self.options.date = self.isFalse(self.options.date);
-      self.options.time = self.isFalse(self.options.time);
-      if (self.options.date === false) {
+      if (self.options.show.date === false) {
         timeValue = value[0];
       }
       self.$el.hide();
@@ -62,7 +60,7 @@
                 onSet: function(e) {
                   if (e.select !== undefined) {
                     self.$date.attr('data-value', e.select);
-                    if (self.options.time === false ||
+                    if (self.options.show.time === false ||
                         self.$time.attr('data-value') !== '') {
                       self.updateValue.call(self, self.$el);
                     }
@@ -96,7 +94,7 @@
                 onSet: function(e) {
                   if (e.select !== undefined) {
                     self.$time.attr('data-value', e.select);
-                    if (self.options.date === false ||
+                    if (self.options.show.date === false ||
                         self.$date.attr('data-value') !== '') {
                       self.updateValue.call(self);
                     }
@@ -172,13 +170,6 @@
       self.$clear = $('<div/>')
         .addClass(self.options.classClearName)
         .appendTo(self.$wrapper);
-    },
-
-    isFalse: function(value) {
-      if (typeof(value) === 'string' && value === 'false') {
-        return false;
-      }
-      return value;
     },
 
     updateValue: function() {
