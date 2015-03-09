@@ -19,6 +19,12 @@
 }(this, function($, Base, registry, Parser, Picker, PickerDate, PickerTime, patternSelect2, _t) {
   'use strict';
   var parser = new Parser("date-picker");
+  parser.add_argument("classWrapperName",'pattern-pickadate-wrapper');
+  parser.add_argument("classDateName",'pattern-pickadate-date');
+  parser.add_argument("classDateWrapperName",'pattern-pickadate-date-wrapper');
+  parser.add_argument("classTimeName",'pattern-pickadate-time');
+  parser.add_argument("classTimeWrapperName",'pattern-pickadate-time-wrapper');
+  parser.add_argument("classSeparatorName", 'pattern-pickadate-separator');
   parser.add_argument("date", { selectYears: true, selectMonths: true });
   parser.add_argument("separator", ' '); // Separator between date and time if both are enabled.
   parser.add_argument("show-date", true);
