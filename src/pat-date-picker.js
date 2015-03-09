@@ -2,7 +2,7 @@
     if (typeof define === 'function' && define.amd) {
         define([
             'jquery',
-            'mockup-patterns-base',
+            'pat-base',
             "pat-registry",
             "pat-parser",
             'picker',
@@ -30,6 +30,7 @@
   return Base.extend({
     name: 'date-picker',
     trigger: ".pat-date-picker",
+    parser: "patternslib",
 
     init: function patPickadateInit ($el, opts) {
       var self = this,
