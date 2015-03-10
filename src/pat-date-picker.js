@@ -31,6 +31,12 @@
     name: 'date-picker',
     trigger: ".pat-date-picker",
     parser: "patternslib",
+    defaults: {
+        classWrapperName: 'pat-pickadate-wrapper',
+        classSeparatorName: 'pat-pickadate-separator',
+        classDateName: 'pat-pickadate-date',
+        classDateWrapperName: 'pat-pickadate-date-wrapper'
+    },
 
     init: function patPickadateInit ($el, opts) {
       var self = this,
