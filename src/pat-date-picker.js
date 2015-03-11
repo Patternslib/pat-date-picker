@@ -19,12 +19,12 @@
 }(this, function($, Base, registry, Parser, Picker, PickerDate, PickerTime, patternSelect2, _t) {
   'use strict';
   var parser = new Parser("date-picker");
-  parser.add_argument("classWrapperName",'pattern-pickadate-wrapper');
-  parser.add_argument("classDateName",'pattern-pickadate-date');
-  parser.add_argument("classDateWrapperName",'pattern-pickadate-date-wrapper');
-  parser.add_argument("classTimeName",'pattern-pickadate-time');
-  parser.add_argument("classTimeWrapperName",'pattern-pickadate-time-wrapper');
-  parser.add_argument("classSeparatorName", 'pattern-pickadate-separator');
+  parser.add_argument("class-wrapper-name",'pattern-pickadate-wrapper');
+  parser.add_argument("class-date-name",'pattern-pickadate-date');
+  parser.add_argument("class-date-wrapper-name",'pattern-pickadate-date-wrapper');
+  parser.add_argument("class-time-name",'pattern-pickadate-time');
+  parser.add_argument("class-time-wrapper-name",'pattern-pickadate-time-wrapper');
+  parser.add_argument("class-separator-name", 'pattern-pickadate-separator');
   parser.add_argument("date", { selectYears: true, selectMonths: true });
   parser.add_argument("separator", ' '); // Separator between date and time if both are enabled.
   parser.add_argument("show-date", true);
@@ -51,7 +51,7 @@
       self.$el.hide();
 
       self.$wrapper = $('<div/>')
-            .addClass(self.options.classWrapperName)
+            .addClass(self.options.class-wrapper-name)
             .insertAfter(self.$el);
 
       if (self.options.show.date !== false) {
@@ -59,9 +59,9 @@
         self.$date = $('<input type="text"/>')
               .attr('placeholder', self.options.placeholderDate)
               .attr('data-value', dateValue)
-              .addClass(self.options.classDateName)
+              .addClass(self.options.class-date-name)
               .appendTo($('<div/>')
-                  .addClass(self.options.classDateWrapperName)
+                  .addClass(self.options.class-date-wrapper-name)
                   .appendTo(self.$wrapper))
               .pickadate($.extend(true, {}, self.options.date, {
                 onSet: function(e) {
@@ -82,7 +82,7 @@
 
       if (self.options.show.date !== false && self.options.show.time !== false) {
         self.$separator = $('<span/>')
-              .addClass(self.options.classSeparatorName)
+              .addClass(self.options.class-separator-name)
               .html(self.options.separator === ' ' ? '&nbsp;'
                                                    : self.options.separator)
               .appendTo(self.$wrapper);
@@ -93,9 +93,9 @@
         self.$time = $('<input type="text"/>')
               .attr('placeholder', self.options.placeholderTime)
               .attr('data-value', timeValue)
-              .addClass(self.options.classTimeName)
+              .addClass(self.options.class-time-name)
               .appendTo($('<div/>')
-                  .addClass(self.options.classTimeWrapperName)
+                  .addClass(self.options.class-time-wrapper-name)
                   .appendTo(self.$wrapper))
               .pickatime($.extend(true, {}, self.options.time, {
                 onSet: function(e) {
@@ -123,7 +123,7 @@
 
       if (self.options.show.date !== false && self.options.show.time !== false && self.options.timezone) {
         self.$separator = $('<span/>')
-              .addClass(self.options.classSeparatorName)
+              .addClass(self.options.class-separator-name)
               .html(self.options.separator === ' ' ? '&nbsp;'
                                                    : self.options.separator)
               .appendTo(self.$wrapper);
