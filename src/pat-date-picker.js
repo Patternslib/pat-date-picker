@@ -50,7 +50,6 @@
       }
       self.$el.hide();
 
-      debugger;
       self.$wrapper = $('<div/>')
             .addClass(self.options.class['wrapper-name'])
             .insertAfter(self.$el);
