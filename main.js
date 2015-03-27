@@ -1,3 +1,11 @@
+var config;
+if (typeof(require) === 'undefined') {
+    /* XXX: Hack to work around r.js's stupid parsing.
+     * We want to save the configuration in a variable so that we can reuse it in
+     * tests/main.js.
+     */
+    require = { config: function (c) { config = c; } };
+}
 require.config({
     baseUrl: "src",
     paths: {
@@ -21,20 +29,21 @@ require.config({
     },
 
     "shim": {
-        "logging": { "exports": "logging" },
+        "logging": { "exports": "logging" }
     }
 });
 
-require(["pat-registry", "pat-date-picker", "jquery.browser"], function(registry, editor) {
-    window.patterns = registry;
-    // workaround this MSIE bug :
-    // https://dev.plone.org/plone/ticket/10894
-    if ($.browser.msie) {
-        $("#settings").remove();
-    }
-    window.Browser = {};
-    window.Browser.onUploadComplete = function () {};
-    registry.init();
-    return;
-});
-
+if (typeof(require) === 'function') {
+    require(["pat-registry", "pat-date-picker", "jquery.browser"], function(registry, editor) {
+        window.patterns = registry;
+        // workaround this MSIE bug :
+        // https://dev.plone.org/plone/ticket/10894
+        if ($.browser.msie) {
+            $("#settings").remove();
+        }
+        window.Browser = {};
+        window.Browser.onUploadComplete = function () {};
+        registry.init();
+        return;
+    });
+}
