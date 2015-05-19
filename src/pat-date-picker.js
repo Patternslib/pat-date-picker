@@ -9,7 +9,8 @@
             'picker.date',
             'picker.time',
             'pat-autosuggest',
-            'i18n'
+            'i18n',
+            'modernizr'
         ], function() {
             return factory.apply(this, arguments);
         });
@@ -19,17 +20,16 @@
 }(this, function($, Base, registry, Parser, Picker, PickerDate, PickerTime, patternSelect2, _t) {
   'use strict';
   var parser = new Parser("date-picker");
-  parser.add_argument("class-wrapper-name",'pattern-pickadate-wrapper');
   parser.add_argument("class-date-name",'pattern-pickadate-date');
   parser.add_argument("class-date-wrapper-name",'pattern-pickadate-date-wrapper');
+  parser.add_argument("class-separator-name", 'pattern-pickadate-separator');
   parser.add_argument("class-time-name",'pattern-pickadate-time');
   parser.add_argument("class-time-wrapper-name",'pattern-pickadate-time-wrapper');
-  parser.add_argument("class-separator-name", 'pattern-pickadate-separator');
+  parser.add_argument("class-wrapper-name",'pattern-pickadate-wrapper');
   parser.add_argument("date", { selectYears: true, selectMonths: true });
   parser.add_argument("separator", ' '); // Separator between date and time if both are enabled.
-  parser.add_argument("show-date", true);
-  parser.add_argument("show-time", true);
-  parser.add_argument("show-timezone", false);
+  parser.add_argument("show", ["date", "time"], ["date", "time", "timezone", "polyfill"], true);
+  parser.add_argument("behavior", [], ["polyfill"], true);
   parser.add_argument("time", {}); // Configure the time value shown
   parser.add_argument("timezone", {});
 
@@ -45,16 +45,23 @@
           timeValue = value[1] || '';
 
       self.options = $.extend(self.options, parser.parse(self.$el, opts));
-      if (self.options.show.date === false) {
-        timeValue = value[0];
+      this.showDate = self.options.show.indexOf('date') > -1;
+      this.showTime = self.options.show.indexOf('time') > -1;
+      this.showTimeZone = self.options.show.indexOf('timezone') > -1;
+      this.polyfill = self.options.behavior.indexOf('polyfill') > -1;
+
+      if (this.polyfill && Modernizr.inputtypes.date) {
+          return;
       }
+
+      if (!this.showDate) { timeValue = value[0]; }
       self.$el.hide();
 
       self.$wrapper = $('<div/>')
             .addClass(self.options.class['wrapper-name'])
             .insertAfter(self.$el);
 
-      if (self.options.show.date !== false) {
+      if (this.showDate) {
         self.options.date.formatSubmit = 'yyyy-mm-dd';
         self.$date = $('<input type="text"/>')
               .attr('placeholder', self.options.placeholderDate)
@@ -67,8 +74,7 @@
                 onSet: function(e) {
                   if (e.select !== undefined) {
                     self.$date.attr('data-value', e.select);
-                    if (self.options.show.time === false ||
-                        self.$time.attr('data-value') !== '') {
+                    if (this.showTime || self.$time.attr('data-value') !== '') {
                       self.updateValue.call(self, self.$el);
                     }
                   }
@@ -76,11 +82,11 @@
                     self.$el.removeAttr('value');
                     self.$date.attr('data-value', '');
                   }
-                }
+                }.bind(this)
               }));
       }
 
-      if (self.options.show.date !== false && self.options.show.time !== false) {
+      if (this.showDate && this.showTime) {
         self.$separator = $('<span/>')
               .addClass(self.options.class['separator-name'])
               .html(self.options.separator === ' ' ? '&nbsp;'
@@ -88,7 +94,7 @@
               .appendTo(self.$wrapper);
       }
 
-      if (self.options.show.time !== false) {
+      if (this.showTime) {
         self.options.time.formatSubmit = 'HH:i';
         self.$time = $('<input type="text"/>')
               .attr('placeholder', self.options.placeholderTime)
@@ -101,8 +107,7 @@
                 onSet: function(e) {
                   if (e.select !== undefined) {
                     self.$time.attr('data-value', e.select);
-                    if (self.options.show.date === false ||
-                        self.$date.attr('data-value') !== '') {
+                    if (this.showDate || (self.$date && self.$date.attr('data-value') !== '')) {
                       self.updateValue.call(self);
                     }
                   }
@@ -110,7 +115,7 @@
                     self.$el.removeAttr('value');
                     self.$time.attr('data-value', '');
                   }
-                }
+                }.bind(this)
               }));
 
         // XXX: bug in pickatime
@@ -121,7 +126,7 @@
         }
       }
 
-      if (self.options.show.date !== false && self.options.show.time !== false && self.options.timezone) {
+      if (this.showDate && this.showTime && this.showTimeZone) {
         self.$separator = $('<span/>')
               .addClass(self.options.class['separator-name'])
               .html(self.options.separator === ' ' ? '&nbsp;'
@@ -129,7 +134,7 @@
               .appendTo(self.$wrapper);
       }
 
-      if (self.options.show.timezone) {
+      if (this.showTimeZone) {
         self.$timezone = $('<input type="text" class="pat-autosuggest" />')
           .addClass(self.options.classTimezoneName)
           .attr('placeholder', self.options.placeholderTimezone)
@@ -148,7 +153,7 @@
                 self.updateValue.call(self);
               }
             }
-          });
+          }.bind(this));
         registry.scan(self.$timezone.parent(), ['autosuggest']);
 
         var defaultTimezone = self.options.timezone.default;
@@ -158,7 +163,7 @@
           // the timezone list contains the default value
           self.options.timezone.data.forEach(function(obj) {
             isInList = (obj.text === self.options.timezone.default) ? true : false;
-          });
+          }.bind(this));
           if (isInList) {
             self.$timezone.attr('data-value', defaultTimezone);
             self.$timezone.parent().find('.select2-chosen').text(defaultTimezone);
@@ -183,7 +188,7 @@
       var self = this,
           value = '';
 
-      if (self.options.show.date !== false) {
+      if (this.showDate) {
         var date = self.$date.data('pickadate').component,
             dateValue = self.$date.data('pickadate').get('select'),
             formatDate = date.formats.toString;
@@ -192,11 +197,11 @@
         }
       }
 
-      if (self.options.show.date !== false && self.options.show.time !== false) {
+      if (this.showDate && this.showTime) {
         value += ' ';
       }
 
-      if (self.options.show.time !== false) {
+      if (this.showTime) {
         var time = self.$time.data('pickatime').component,
             timeValue = self.$time.data('pickatime').get('select'),
             formatTime = time.formats.toString;
