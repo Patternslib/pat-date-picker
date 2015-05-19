@@ -72,7 +72,7 @@
                         onSet: function(e) {
                             if (e.select !== undefined) {
                                 this.$date.attr('data-value', e.select);
-                                if (this.showTime || this.$time.attr('data-value') !== '') {
+                                if (this.showTime || (this.$time && this.$time.attr('data-value') !== '')) {
                                     this.updateValue.call(this, this.$el);
                                 }
                             }
