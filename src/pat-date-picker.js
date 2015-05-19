@@ -47,6 +47,7 @@
             this.polyfill = this.options.behavior.indexOf('polyfill') > -1;
             if (this.polyfill && Modernizr.inputtypes.date) { return; }
 
+
             this.showDate = this.options.show.indexOf('date') > -1;
             this.showTime = this.options.show.indexOf('time') > -1;
             this.showTimeZone = this.options.show.indexOf('timezone') > -1;
@@ -201,8 +202,7 @@
                     value += formatTime.apply(time, ['HH:i', timeValue]);
                 }
             }
-
-            if (this.options.timezone.length) {
+            if (this.showTimeZone) {
                 var timezone = ' ' + this.$timezone.attr('data-value');
                 if (timezone) { value += timezone; }
             }

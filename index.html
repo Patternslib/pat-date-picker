@@ -63,19 +63,37 @@
       <legend>
         <p>Date and time with timezone</p>
         <label>Example 7:</label>
-        <input class="pat-date-picker" data-pat-date-picker='{"timezone": {"data": [{"id":"Europe/Berlin","text":"Europe/Berlin"},{"id":"Europe/Vienna","text":"Europe/Vienna"}]}}'/>
+        <input class="pat-date-picker" data-pat-date-picker='{"show": ["date", "time", "timezone"], "timezone": {"data": [{"id":"Europe/Berlin","text":"Europe/Berlin"},{"id":"Europe/Vienna","text":"Europe/Vienna"}]}}'/>
       </legend>
 
       <legend>
         <p>Date and time with timezone and default value</p>
         <label>Example 8:</label>
-        <input class="pat-date-picker" data-pat-date-picker='{"show-timezone": true, "timezone": {"default": "Europe/Vienna", "data": [{"id":"Europe/Berlin","text":"Europe/Berlin"},{"id":"Europe/Vienna","text":"Europe/Vienna"}]}}'/>
+        <input class="pat-date-picker" data-pat-date-picker='{"show": ["date", "time", "timezone"], "timezone": {"default": "Europe/Vienna", "data": [{"id":"Europe/Berlin","text":"Europe/Berlin"},{"id":"Europe/Vienna","text":"Europe/Vienna"}]}}'/>
       </legend>
 
       <legend>
         <p>Date and time with one timezone</p>
         <label>Example 9:</label>
-        <input class="pat-date-picker" data-pat-date-picker='{"show-timezone": true, "timezone": {"data": [{"id":"Europe/Berlin","text":"Europe/Berlin"}]}}'/>
+        <input class="pat-date-picker" data-pat-date-picker='{"show": ["date", "time", "timezone"], "timezone": {"data": [{"id":"Europe/Berlin","text":"Europe/Berlin"}]}}'/>
+      </legend>
+
+      <legend>
+        <p>Only timezone</p>
+        <label>Example 10:</label>
+        <input class="pat-date-picker" data-pat-date-picker='{"show": ["timezone"], "timezone": {"data": [{"id":"Europe/Berlin","text":"Europe/Berlin"}]}}'/>
+      </legend>
+
+      <legend>
+        <p>Polyfill Date</p>
+        <label>Example 11:</label>
+        <input class="pat-date-picker" type="date" data-pat-date-picker="behavior: polyfill; show: date"/>
+      </legend>
+
+      <legend>
+        <p>Polyfill Date and Time</p>
+        <label>Example 11:</label>
+        <input class="pat-date-picker" type="datetime-local" data-pat-date-picker="behavior: polyfill; show: date, time"/>
       </legend>
 
     </form>
