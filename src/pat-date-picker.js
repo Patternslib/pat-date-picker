@@ -39,81 +39,80 @@
     parser: "patternslib",
 
     init: function patPickadateInit ($el, opts) {
-      var self = this,
-          value = self.$el.val().split(' '),
+      var value = this.$el.val().split(' '),
           dateValue = value[0] || '',
           timeValue = value[1] || '';
 
-      self.options = $.extend(self.options, parser.parse(self.$el, opts));
-      this.showDate = self.options.show.indexOf('date') > -1;
-      this.showTime = self.options.show.indexOf('time') > -1;
-      this.showTimeZone = self.options.show.indexOf('timezone') > -1;
-      this.polyfill = self.options.behavior.indexOf('polyfill') > -1;
+      this.options = $.extend(this.options, parser.parse(this.$el, opts));
+      this.showDate = this.options.show.indexOf('date') > -1;
+      this.showTime = this.options.show.indexOf('time') > -1;
+      this.showTimeZone = this.options.show.indexOf('timezone') > -1;
+      this.polyfill = this.options.behavior.indexOf('polyfill') > -1;
 
       if (this.polyfill && Modernizr.inputtypes.date) {
           return;
       }
 
       if (!this.showDate) { timeValue = value[0]; }
-      self.$el.hide();
+      this.$el.hide();
 
-      self.$wrapper = $('<div/>')
-            .addClass(self.options.class['wrapper-name'])
-            .insertAfter(self.$el);
+      this.$wrapper = $('<div/>')
+            .addClass(this.options.class['wrapper-name'])
+            .insertAfter(this.$el);
 
       if (this.showDate) {
-        self.options.date.formatSubmit = 'yyyy-mm-dd';
-        self.$date = $('<input type="text"/>')
-              .attr('placeholder', self.options.placeholderDate)
+        this.options.date.formatSubmit = 'yyyy-mm-dd';
+        this.$date = $('<input type="text"/>')
+              .attr('placeholder', this.options.placeholderDate)
               .attr('data-value', dateValue)
-              .addClass(self.options.class['date-name'])
+              .addClass(this.options.class['date-name'])
               .appendTo($('<div/>')
-                  .addClass(self.options.class['date-wrapper-name'])
-                  .appendTo(self.$wrapper))
-              .pickadate($.extend(true, {}, self.options.date, {
+                  .addClass(this.options.class['date-wrapper-name'])
+                  .appendTo(this.$wrapper))
+              .pickadate($.extend(true, {}, this.options.date, {
                 onSet: function(e) {
                   if (e.select !== undefined) {
-                    self.$date.attr('data-value', e.select);
-                    if (this.showTime || self.$time.attr('data-value') !== '') {
-                      self.updateValue.call(self, self.$el);
+                    this.$date.attr('data-value', e.select);
+                    if (this.showTime || this.$time.attr('data-value') !== '') {
+                      this.updateValue.call(this, this.$el);
                     }
                   }
                   if (e.hasOwnProperty('clear')) {
-                    self.$el.removeAttr('value');
-                    self.$date.attr('data-value', '');
+                    this.$el.removeAttr('value');
+                    this.$date.attr('data-value', '');
                   }
                 }.bind(this)
               }));
       }
 
       if (this.showDate && this.showTime) {
-        self.$separator = $('<span/>')
-              .addClass(self.options.class['separator-name'])
-              .html(self.options.separator === ' ' ? '&nbsp;'
-                                                   : self.options.separator)
-              .appendTo(self.$wrapper);
+        this.$separator = $('<span/>')
+              .addClass(this.options.class['separator-name'])
+              .html(this.options.separator === ' ' ? '&nbsp;'
+                                                   : this.options.separator)
+              .appendTo(this.$wrapper);
       }
 
       if (this.showTime) {
-        self.options.time.formatSubmit = 'HH:i';
-        self.$time = $('<input type="text"/>')
-              .attr('placeholder', self.options.placeholderTime)
+        this.options.time.formatSubmit = 'HH:i';
+        this.$time = $('<input type="text"/>')
+              .attr('placeholder', this.options.placeholderTime)
               .attr('data-value', timeValue)
-              .addClass(self.options.class['time-name'])
+              .addClass(this.options.class['time-name'])
               .appendTo($('<div/>')
-                  .addClass(self.options.class['time-wrapper-name'])
-                  .appendTo(self.$wrapper))
-              .pickatime($.extend(true, {}, self.options.time, {
+                  .addClass(this.options.class['time-wrapper-name'])
+                  .appendTo(this.$wrapper))
+              .pickatime($.extend(true, {}, this.options.time, {
                 onSet: function(e) {
                   if (e.select !== undefined) {
-                    self.$time.attr('data-value', e.select);
-                    if (this.showDate || (self.$date && self.$date.attr('data-value') !== '')) {
-                      self.updateValue.call(self);
+                    this.$time.attr('data-value', e.select);
+                    if (this.showDate || (this.$date && this.$date.attr('data-value') !== '')) {
+                      this.updateValue.call(this);
                     }
                   }
                   if (e.hasOwnProperty('clear')) {
-                    self.$el.removeAttr('value');
-                    self.$time.attr('data-value', '');
+                    this.$el.removeAttr('value');
+                    this.$time.attr('data-value', '');
                   }
                 }.bind(this)
               }));
@@ -121,76 +120,75 @@
         // XXX: bug in pickatime
         // work around pickadate bug loading 00:xx as value
         if (typeof(timeValue) === 'string' && timeValue.substring(0,2) === '00') {
-          self.$time.pickatime('picker').set('select', timeValue.split(':'));
-          self.$time.attr('data-value', timeValue);
+          this.$time.pickatime('picker').set('select', timeValue.split(':'));
+          this.$time.attr('data-value', timeValue);
         }
       }
 
       if (this.showDate && this.showTime && this.showTimeZone) {
-        self.$separator = $('<span/>')
-              .addClass(self.options.class['separator-name'])
-              .html(self.options.separator === ' ' ? '&nbsp;'
-                                                   : self.options.separator)
-              .appendTo(self.$wrapper);
+        this.$separator = $('<span/>')
+              .addClass(this.options.class['separator-name'])
+              .html(this.options.separator === ' ' ? '&nbsp;'
+                                                   : this.options.separator)
+              .appendTo(this.$wrapper);
       }
 
       if (this.showTimeZone) {
-        self.$timezone = $('<input type="text" class="pat-autosuggest" />')
-          .addClass(self.options.classTimezoneName)
-          .attr('placeholder', self.options.placeholderTimezone)
+        this.$timezone = $('<input type="text" class="pat-autosuggest" />')
+          .addClass(this.options.classTimezoneName)
+          .attr('placeholder', this.options.placeholderTimezone)
           .attr('data-pat-autosuggest',
-              'words-json: '+ (JSON.stringify(self.options.timezone.data) || "") +
-              '; pre-fill: '+ (self.options.timezone.default || "") +
+              'words-json: '+ (JSON.stringify(this.options.timezone.data) || "") +
+              '; pre-fill: '+ (this.options.timezone.default || "") +
               '; maximum-selection-size: 1')
           .appendTo($('<div/>')
-            .addClass(self.options.classTimezoneWrapperName)
-            .appendTo(self.$wrapper))
+            .addClass(this.options.classTimezoneWrapperName)
+            .appendTo(this.$wrapper))
           .on('change', function(e) {
             if (e.val !== undefined){
-              self.$timezone.attr('data-value', e.val);
-              if ((self.options.date === false || self.$date.attr('data-value') !== '') &&
-                  (self.options.time === false || self.$time.attr('data-value') !== '')) {
-                self.updateValue.call(self);
+              this.$timezone.attr('data-value', e.val);
+              if ((this.options.date === false || this.$date.attr('data-value') !== '') &&
+                  (this.options.time === false || this.$time.attr('data-value') !== '')) {
+                this.updateValue.call(this);
               }
             }
           }.bind(this));
-        registry.scan(self.$timezone.parent(), ['autosuggest']);
+        registry.scan(this.$timezone.parent(), ['autosuggest']);
 
-        var defaultTimezone = self.options.timezone.default;
+        var defaultTimezone = this.options.timezone.default;
         // if timezone has a default value included
         if (defaultTimezone) {
           var isInList;
           // the timezone list contains the default value
-          self.options.timezone.data.forEach(function(obj) {
-            isInList = (obj.text === self.options.timezone.default) ? true : false;
+          this.options.timezone.data.forEach(function(obj) {
+            isInList = (obj.text === this.options.timezone.default) ? true : false;
           }.bind(this));
           if (isInList) {
-            self.$timezone.attr('data-value', defaultTimezone);
-            self.$timezone.parent().find('.select2-chosen').text(defaultTimezone);
+            this.$timezone.attr('data-value', defaultTimezone);
+            this.$timezone.parent().find('.select2-chosen').text(defaultTimezone);
           }
         }
         // if data contains only one timezone this value will be chosen
         // and the timezone dropdown list will be disabled and
-        var data = self.options.timezone.data;
+        var data = this.options.timezone.data;
         if (data && data.length === 1) {
-          self.$timezone.attr('data-value', data[0].text);
-          self.$timezone.parent().find('.select2-chosen').text(data[0].text);
-          self.$timezone.select2('enable', false);
+          this.$timezone.attr('data-value', data[0].text);
+          this.$timezone.parent().find('.select2-chosen').text(data[0].text);
+          this.$timezone.select2('enable', false);
         }
       }
 
-      self.$clear = $('<div/>')
-        .addClass(self.options.classClearName)
-        .appendTo(self.$wrapper);
+      this.$clear = $('<div/>')
+        .addClass(this.options.classClearName)
+        .appendTo(this.$wrapper);
     },
 
     updateValue: function() {
-      var self = this,
-          value = '';
+      var value = '';
 
       if (this.showDate) {
-        var date = self.$date.data('pickadate').component,
-            dateValue = self.$date.data('pickadate').get('select'),
+        var date = this.$date.data('pickadate').component,
+            dateValue = this.$date.data('pickadate').get('select'),
             formatDate = date.formats.toString;
         if (dateValue) {
           value += formatDate.apply(date, ['yyyy-mm-dd', dateValue]);
@@ -202,22 +200,22 @@
       }
 
       if (this.showTime) {
-        var time = self.$time.data('pickatime').component,
-            timeValue = self.$time.data('pickatime').get('select'),
+        var time = this.$time.data('pickatime').component,
+            timeValue = this.$time.data('pickatime').get('select'),
             formatTime = time.formats.toString;
         if (timeValue) {
           value += formatTime.apply(time, ['HH:i', timeValue]);
         }
       }
 
-      if (self.options.timezone.length) {
-        var timezone = ' ' + self.$timezone.attr('data-value');
+      if (this.options.timezone.length) {
+        var timezone = ' ' + this.$timezone.attr('data-value');
         if (timezone) {
           value += timezone;
         }
       }
-      self.$el.attr('value', value);
-      self.$el.trigger('updated');
+      this.$el.attr('value', value);
+      this.$el.trigger('updated');
     }
   });
 }));
