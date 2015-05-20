@@ -20,18 +20,20 @@
 }(this, function($, Base, registry, Parser, Picker, PickerDate, PickerTime, patternSelect2, _t) {
     'use strict';
     var parser = new Parser("date-picker");
-    parser.add_argument("class-date-name",'pattern-pickadate-date');
-    parser.add_argument("class-date-wrapper-name",'pattern-pickadate-date-wrapper');
-    parser.add_argument("class-separator-name", 'pattern-pickadate-separator');
-    parser.add_argument("class-time-name",'pattern-pickadate-time');
-    parser.add_argument("class-time-wrapper-name",'pattern-pickadate-time-wrapper');
-    parser.add_argument("class-wrapper-name",'pattern-pickadate-wrapper');
-    parser.add_argument("date", { selectYears: true, selectMonths: true });
-    parser.add_argument("separator", ' '); // Separator between date and time if both are enabled.
-    parser.add_argument("show", ["date", "time"], ["date", "time", "timezone", "polyfill"], true);
-    parser.add_argument("behavior", [], ["polyfill"], true);
-    parser.add_argument("time", {}); // Configure the time value shown
-    parser.add_argument("timezone", {});
+    parser.addArgument("class-date-name",'pattern-pickadate-date');
+    parser.addArgument("class-date-wrapper-name",'pattern-pickadate-date-wrapper');
+    parser.addArgument("class-separator-name", 'pattern-pickadate-separator');
+    parser.addArgument("class-time-name",'pattern-pickadate-time');
+    parser.addArgument("class-time-wrapper-name",'pattern-pickadate-time-wrapper');
+    parser.addArgument("class-wrapper-name",'pattern-pickadate-wrapper');
+    parser.addArgument("date", { selectYears: true, selectMonths: true });
+    parser.addArgument("separator", ' '); // Separator between date and time if both are enabled.
+    parser.addArgument("show", ["date", "time"], ["date", "time", "timezone", "polyfill"], true);
+    parser.addArgument("behavior", [], ["polyfill"], true);
+    parser.addArgument("time", {}); // Configure the time value shown
+    parser.addArgument("timezone", {});
+
+    parser.addAlias("behaviour", "behavior");
 
     return Base.extend({
         name: 'date-picker',

@@ -26,6 +26,7 @@ require.config({
         "picker":               "bower_components/pickadate/lib/picker",
         "picker.date":          "bower_components/pickadate/lib/picker.date",
         "picker.time":          "bower_components/pickadate/lib/picker.time",
+        "underscore":           "bower_components/underscore/underscore",
         "select2":              "bower_components/select2/select2"
     },
 
