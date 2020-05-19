@@ -1,5 +1,14 @@
 ##pat-date-picker
 
+---
+
+**Note: deprecated pattern**
+
+This pattern is integrated into Patterns directly.<br>
+Please use the pattern at: https://github.com/Patternslib/Patterns/tree/master/src/pat/date-picker
+
+---
+
 A Patternslib pattern which wraps the [Pickadate](http://amsul.ca/pickadate.js/) library.
 
 ##demo
